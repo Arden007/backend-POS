@@ -1,0 +1,80 @@
+# User
+GET http://localhost:5000/users
+
+
+###  
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+    "userName": "admin2",
+    "userEmail": "admin2,@example.com",
+    "userPassword": "00002",
+    "userContact": "0700001112"
+    
+}
+
+###
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "userName": "admin",
+    "userPassword": "0000"
+}
+
+###
+PUT http://localhost:5000/users/6218a5a8f08f8da777e262f8
+token: Bear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMThhNWE4ZjA4ZjhkYTc3N2UyNjJmOCIsImlhdCI6MTY0NTc4MjQ4MCwiZXhwIjoxNjQ2MDQxNjgwfQ.xw7SbtSIFehlIm0JJbeoildHndbH1A5XZz80d1fF-uc
+Content-Type: application/json
+
+{
+    "userName": "test2UpdateUser"
+}
+
+###
+DELETE  http://localhost:5000/users/6217ef4368cdc6e9c58e2c77
+token: Bear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMTdlZjQzNjhjZGM2ZTljNThlMmM3NyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0NTczNTkwNCwiZXhwIjoxNjQ1OTk1MTA0fQ.XWs_KoH17wQUGc0qTAB84GfGsrT2weimFhhaHVT23SA
+Content-Type: application/json
+
+{
+    "userName": "test2UpdateUser"
+}
+
+###  
+GET http://localhost:5000/users/find/6218a5a8f08f8da777e262f8
+token: Bear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMThhNWE4ZjA4ZjhkYTc3N2UyNjJmOCIsImlhdCI6MTY0NTc4MjQ4MCwiZXhwIjoxNjQ2MDQxNjgwfQ.xw7SbtSIFehlIm0JJbeoildHndbH1A5XZz80d1fF-uc
+Content-Type: application/json
+
+###
+
+# Product
+POST http://localhost:5000/products
+Content-Type: application/json
+
+{
+    "productTitle": "nike T-shirt",
+    "productCategory": ["tshirt", "man"],
+    "productDescription": "nike" ,
+    "productImage": "test",
+    "productPrice": "300",
+    "productColor": "grey" ,
+    "productSize": "M" 
+}
+
+###
+GET http://localhost:5000/products
+
+###
+GET http://localhost:5000/products/find/6218a6fb7e56e22503a5f2fa
+
+###
+DELETE  http://localhost:5000/products/6218a648efbf39b80aaf43e7
+
+###
+PUT http://localhost:5000/products/6218a6fb7e56e22503a5f2fa
+Content-Type: application/json
+
+{
+    "productTitle": "puma1"
+}
