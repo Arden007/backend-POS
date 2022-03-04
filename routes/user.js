@@ -3,10 +3,15 @@ const router = require("express").Router();
 const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
-const {verifyTokenAndAuthorization} = require("../middlewear/verifyToken");
+const {
+  verifyTokenAndAuthorization,
+  verifyToken,
+} = require("../middlewear/verifyToken");
+const product = require("../models/Product");
+
 
 // Updating' a user
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.put("/:id", verifyToken, async (req, res) => {
   // be4 updating we will be checking the password again cause user can change the password so I will be encrypting it again
   if (req.body.userPassword) {
     req.body.userPassword = CryptoJS.AES.encrypt(
@@ -66,5 +71,46 @@ router.get("/", async (req, res) => {
 });
 
 // USER CART
+
+// Create a Product
+router.post(
+  "/cart/:id",
+  [verifyToken],
+  async (req, res) => {
+    const user = await User.findById(req.users._id);
+    // product info
+    var productId = req.product._id;
+    var productTitle = req.products.productTitle;
+    var productCategory = req.products.productCategory;
+    var productDescription = req.products.productDescription;
+    var productImage = req.products.productImage;
+    var productPrice = req.products.productPrice;
+    var productColor = req.products.productColor;
+    var productSize = req.products.productSize;
+    var productQuantity = req.body;
+    var createdBy = req.user._id;
+
+    try {
+   const usercart = new User.Cart.push({
+        productId,
+        productTitle,
+        productCategory,
+        productDescription,
+        productImage,
+        productPrice,
+        productColor,
+        productSize,
+        productQuantity,
+        createdBy,
+      });
+      const cart = await User.Cart.save();
+      console.log(cart);
+      res.status(200).json(cart);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+);
+
 
 module.exports = router;

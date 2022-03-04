@@ -1,10 +1,25 @@
-const router = require("express").Router();
-const User = require("../models/User");
-const CryptoJS = require("crypto-js");
+// require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+
+  const token = authHeader && authHeader.split(" ")[1];
+  if (!token || token == null)
+    return res.status(401).send({ message: "User not logged in" });
+
+  jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+    if (err) res.status(403).send({ message: err.message });
+    // console.log("from auth: ", user)
+    req.user = user;
+    return next();
+  });
+}
+
+module.exports = authenticateToken;
+
 // REGISTER
-router.post("/register", async (req, res) => {
+router.post("/", async (req, res) => {
   const newUser = new User({
     userName: req.body.userName,
     userEmail: req.body.userEmail,

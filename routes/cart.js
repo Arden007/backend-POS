@@ -4,44 +4,7 @@ const Product = require("../models/Product");
 const User = require("../models/User");
 const { verifyTokenAndAuthorization } = require("../middlewear/verifyToken");
 
-// Create a Product
-router.post(
-  "/:id",
-  [verifyTokenAndAuthorization, Product],
-  async (req, res) => {
-    const user = await User.findById(req.users._id);
-    // product info
-    var productId = req.Product._id;
-    var productTitle = req.Product.productTitle;
-    var productCategory = req.Product.productCategory;
-    var productDescription = req.Product.productDescription;
-    var productImage = req.Product.productImage;
-    var productPrice = req.Product.productPrice;
-    var productColor = req.Product.productColor;
-    var productSize = req.Product.productSize;
-    var productQuantity = req.body;
-    var createdBy = req.user._id;
 
-    try {
-      User.Cart.push({
-        productId,
-        productTitle,
-        productCategory,
-        productDescription,
-        productImage,
-        productPrice,
-        productColor,
-        productSize,
-        productQuantity,
-        createdBy,
-      });
-      const userCart = await User.save();
-      res.status(200).json(userCart);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  }
-);
 
 // Updating' a Product
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {

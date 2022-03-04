@@ -1,29 +1,30 @@
-const jwt = require("jsonwebtoken");
+// This is used to find various Schemas
+const User = require("../models/user");
+const Product = require("../models/product");
 
-const verifyToken = (req, res, next) => {
-  const autherHeader = req.headers.token;
-  if (autherHeader) {
-    const token = autherHeader.split(" ")[1];
-    // we verify the in info and then other return an err or data
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-      console.log(token);
-      if (err) res.status(403).json("Token is not valid!");
-      req.user = user;
-      next();
-    });
-  } else {
-    return res.status(401).json("You are not Authenticated!");
+async function getUser(req, res, next) {
+  let user;
+  try {
+    user = await User.findById(req.params.id);
+
+    if (!user) res.status(404).json({ message: "Could not find user" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-};
+  res.user = user;
+  next();
+}
 
-const verifyTokenAndAuthorization = (req, res, next) => {
-  verifyToken(req, res, () => {
-    if (req.user.id === req.params.id) {
-      next();
-    } else {
-      res.status(403).json("You are not Authorizated!");
-    }
-  });
-};
+async function getProduct(req, res, next) {
+  let product;
+  try {
+    product = await Product.findById(req.params.id);
+    if (!product) res.status(404).json({ message: "Could not find product" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+  res.product = product;
+  next();
+}
 
-module.exports = { verifyTokenAndAuthorization };
+module.exports = { getUser, getProduct };

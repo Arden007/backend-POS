@@ -7,7 +7,7 @@ POST http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-    "userName": "admin2",
+    "userName": "admin2345",
     "userEmail": "admin2,@example.com",
     "userPassword": "00002",
     "userContact": "0700001112"
@@ -19,13 +19,13 @@ POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {
-    "userName": "admin",
-    "userPassword": "0000"
+    "userName": "test2UpdateUser",
+    "userPassword": "00002"
 }
 
 ###
-PUT http://localhost:5000/users/6218a5a8f08f8da777e262f8
-token: Bear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMThhNWE4ZjA4ZjhkYTc3N2UyNjJmOCIsImlhdCI6MTY0NTc4MjQ4MCwiZXhwIjoxNjQ2MDQxNjgwfQ.xw7SbtSIFehlIm0JJbeoildHndbH1A5XZz80d1fF-uc
+PUT http://localhost:5000/users/6218dc7a90a6bba22f4a7be7
+token: Bear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMThkYzdhOTBhNmJiYTIyZjRhN2JlNyIsImlhdCI6MTY0NjE0MzQzNSwiZXhwIjoxNjQ2NDAyNjM1fQ.d7Qm3OOXbfi30GFpbKv0FDubh-Jz0sIYd_7mamabGA8
 Content-Type: application/json
 
 {
@@ -66,10 +66,10 @@ Content-Type: application/json
 GET http://localhost:5000/products
 
 ###
-GET http://localhost:5000/products/find/6218a6fb7e56e22503a5f2fa
+GET http://localhost:5000/products/find/621e2988e7abbe3f03f22bb3
 
 ###
-DELETE  http://localhost:5000/products/6218a648efbf39b80aaf43e7
+DELETE  http://localhost:5000/products/621e2988e7abbe3f03f22bb3
 
 ###
 PUT http://localhost:5000/products/6218a6fb7e56e22503a5f2fa
@@ -77,4 +77,20 @@ Content-Type: application/json
 
 {
     "productTitle": "puma1"
+}
+
+###
+#cart
+POST  http://localhost:5000/users/cart/621e51d60d30b64cb299a412
+token: Bear eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMThkYzdhOTBhNmJiYTIyZjRhN2JlNyIsImlhdCI6MTY0NjE1NDI5MCwiZXhwIjoxNjQ2NDEzNDkwfQ.P_lJkEdcwLGvGNOWrltR_d_JoP7joikdeNRvHCE5ctI
+Content-Type: application/json
+
+{
+    "productTitle": "nike T-shirt",
+    "productCategory": ["tshirt", "man"],
+    "productDescription": "nike" ,
+    "productImage": "test",
+    "productPrice": "300",
+    "productColor": "grey" ,
+    "productSize": "M" 
 }
